@@ -14,17 +14,23 @@
             parent="inntouch_base.configuration"
             sequence="1"/>
         <menuitem
+            id="master_data_property"
+            name="Properties"
+            parent="inntouch_base.master_data_root"
+            action="inntouch_base.action_inntouch_property"
+            sequence="1"/>
+        <menuitem
             id="master_data_amenities"
             name="Amenities"
             parent="inntouch_base.master_data_root"
             action="inntouch_base.action_inntouch_amenities"
-            sequence="1"/>
+            sequence="2"/>
         <menuitem
             id="master_data_facility"
             name="Facilities"
             parent="inntouch_base.master_data_root"
             action="inntouch_base.action_inntouch_facilities"
-            sequence="2"/>
+            sequence="3"/>
     </data>
 
 </odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View inntouch.property View Tree -->
+    <record id="view_inntouch_property_tree" model="ir.ui.view">
+        <field name="name">view.inntouch.property.tree</field>
+        <field name="model">inntouch.property</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="location"/>
+                <field name="number_of_rooms"/>
+                <field name="contact_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View inntouch.property form -->
+    <record id="view_inntouch_property_form" model="ir.ui.view">
+        <field name="name">view.inntouch.property.form</field>
+        <field name="model">inntouch.property</field>
+        <field name="arch" type="xml">
+            <form string="Properties">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Property Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="location"/>
+                        <field name="number_of_rooms"/>
+                        <field name="contact_number"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View inntouch.property search -->
+    <record id="view_inntouch_property_search" model="ir.ui.view">
+        <field name="name">view.inntouch.property.search</field>
+        <field name="model">inntouch.property</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action inntouch.property -->
+    <record id="action_inntouch_property" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">inntouch.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Property.
+            </p>
+        </field>
+    </record>
+
+</odoo>

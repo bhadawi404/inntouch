@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="property_id"/>
                 <field name="is_available"/>
                 <field name="last_maintenance_date" />
                 <field name="description" />
@@ -29,6 +30,7 @@
                         </h1>
                     </div>
                     <group>
+                        <field name="property_id"/>
                         <field name="is_available" widget="boolean_toggle"/>
                         <field name="last_maintenance_date" />
                         <field name="description" />

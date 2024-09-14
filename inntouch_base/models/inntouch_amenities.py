@@ -8,6 +8,7 @@ class InntouchAmenities(models.Model):
     is_available = fields.Boolean('Is Available ?', default=True)
     last_maintenance_date = fields.Date('Last Maintenance')
     description = fields.Text('Description')
+    property_id = fields.Many2one('inntouch.property', string='Property', required=True)
 
 
     
