@@ -29,7 +29,7 @@
                         </h1>
                     </div>
                     <group>
-                        <field name="is_available" />
+                        <field name="is_available" widget="boolean_toggle"/>
                         <field name="last_maintenance_date" />
                         <field name="description" />
                     </group>

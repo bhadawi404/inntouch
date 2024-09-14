@@ -19,6 +19,12 @@
             parent="inntouch_base.master_data_root"
             action="inntouch_base.action_inntouch_amenities"
             sequence="1"/>
+        <menuitem
+            id="master_data_facility"
+            name="Facilities"
+            parent="inntouch_base.master_data_root"
+            action="inntouch_base.action_inntouch_facilities"
+            sequence="2"/>
     </data>
 
 </odoo>

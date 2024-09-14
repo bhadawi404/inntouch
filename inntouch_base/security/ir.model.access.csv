@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_inntouch_amenities_manager,inntouch_amenities_manager,model_inntouch_amenities,,1,1,1,1
+access_inntouch_facilities_manager,inntouch_facilities_manager,model_inntouch_facilities,,1,1,1,1
