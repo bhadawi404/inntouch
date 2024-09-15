@@ -8,29 +8,46 @@
             web_icon="inntouch_reservation,static/description/icon.png"
             sequence="98"
         />
+        <!-- Room Management -->
+        <menuitem
+            id="room_management"
+            name="Room Management"
+            parent="inntouch_reservation.reservation_root"
+            sequence="98"/>
+        <menuitem
+            id="room_type_configuration"
+            name="Room Type"
+            parent="inntouch_reservation.room_management"
+            action="inntouch_reservation.action_inntouch_room_type"
+            sequence="1"/>
+        <!-- End Room Management -->
+
+        <!-- Configuration -->
         <menuitem
             id="configuration_reservation"
             name="Configuration"
             parent="inntouch_reservation.reservation_root"
             sequence="99"/>
-        <menuitem
-            id="room_type_configuration"
-            name="Room Type"
-            parent="inntouch_reservation.configuration_reservation"
-            action="inntouch_reservation.action_inntouch_room_type"
-            sequence="1"/>
+        
         <menuitem
             id="booking_source_configuration"
             name="Booking Source"
             parent="inntouch_reservation.configuration_reservation"
             action="inntouch_reservation.action_inntouch_booking_source"
-            sequence="2"/>
+            sequence="1"/>
         <menuitem
             id="cancel_policy_configuration"
             name="Cancellation Policies"
             parent="inntouch_reservation.configuration_reservation"
             action="inntouch_reservation.action_inntouch_cancellation_policy"
+            sequence="2"/>
+        <menuitem
+            id="deposit_policy_configuration"
+            name="Deposit Policy"
+            parent="inntouch_reservation.configuration_reservation"
+            action="inntouch_reservation.action_inntouch_deposit_policy"
             sequence="3"/>
+        <!-- End Configuration -->
     </data>
 
 </odoo>

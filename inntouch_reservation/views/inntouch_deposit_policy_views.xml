@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View inntouch.deposit.policy View Tree -->
+    <record id="view_inntouch_deposit_policy_tree" model="ir.ui.view">
+        <field name="name">view.inntouch.deposit.policy.tree</field>
+        <field name="model">inntouch.deposit.policy</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="property_id" />
+                <field name="room_type_id"/>
+                <field name="deposit_percentage"/>
+                <field name="due_date_before_checkin"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View inntouch.deposit.policy form -->
+    <record id="view_inntouch_deposit_policy_form" model="ir.ui.view">
+        <field name="name">view.inntouch.deposit.policy.form</field>
+        <field name="model">inntouch.deposit.policy</field>
+        <field name="arch" type="xml">
+            <form string="Deposit Policy">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="property_id" required="1"/>
+                        <field name="room_type_id" required="1"/>
+                        <field name="deposit_percentage" required="1"/>
+                        <field name="due_date_before_checkin" required="1"/>
+                        <field name="policy_description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View inntouch.deposit.policy search -->
+    <record id="view_inntouch_deposit_policy_search" model="ir.ui.view">
+        <field name="name">view.inntouch.deposit.policy.search</field>
+        <field name="model">inntouch.deposit.policy</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action inntouch.deposit.policy -->
+    <record id="action_inntouch_deposit_policy" model="ir.actions.act_window">
+        <field name="name">Deposit Policy</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">inntouch.deposit.policy</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Deposit Policy.
+            </p>
+        </field>
+    </record>
+
+</odoo>
