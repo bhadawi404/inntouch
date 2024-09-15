@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <menuitem
+            id="reservation_root"
+            name="Reservation"
+            web_icon="inntouch_reservation,static/description/icon.png"
+            sequence="98"
+        />
+        <menuitem
+            id="configuration_reservation"
+            name="Configuration"
+            parent="inntouch_reservation.reservation_root"
+            sequence="99"/>
+        <menuitem
+            id="room_type_configuration"
+            name="Room Type"
+            parent="inntouch_reservation.configuration_reservation"
+            action="inntouch_reservation.action_inntouch_room_type"
+            sequence="1"/>
+        <menuitem
+            id="booking_source_configuration"
+            name="Booking Source"
+            parent="inntouch_reservation.configuration_reservation"
+            action="inntouch_reservation.action_inntouch_booking_source"
+            sequence="2"/>
+    </data>
+
+</odoo>
