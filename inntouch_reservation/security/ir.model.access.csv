@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_inntouch_room_type_manager,inntouch_room_type_manager,model_inntouch_room_type,,1,1,1,1
 access_inntouch_room_type_amenities_manager,inntouch_room_type_amenities_manager,model_inntouch_room_type_amenities,,1,1,1,1
 access_inntouch_booking_source_manager,inntouch_booking_source_manager,model_inntouch_booking_source,,1,1,1,1
+access_inntouch_cancellation_policy_manager,inntouch_cancellation_policy_manager,model_inntouch_cancellation_policy,,1,1,1,1

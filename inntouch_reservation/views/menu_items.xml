@@ -25,6 +25,12 @@
             parent="inntouch_reservation.configuration_reservation"
             action="inntouch_reservation.action_inntouch_booking_source"
             sequence="2"/>
+        <menuitem
+            id="cancel_policy_configuration"
+            name="Cancellation Policies"
+            parent="inntouch_reservation.configuration_reservation"
+            action="inntouch_reservation.action_inntouch_cancellation_policy"
+            sequence="3"/>
     </data>
 
 </odoo>

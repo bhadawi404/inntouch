@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View inntouch.cancellation.policy View Tree -->
+    <record id="view_inntouch_cancellation_policy_tree" model="ir.ui.view">
+        <field name="name">view.inntouch.cancellation.policy.tree</field>
+        <field name="model">inntouch.cancellation.policy</field>
+        <field name="arch" type="xml">
+            <tree string="Cancellation Policies">
+                <field name="name"/>
+                <field name="property_id" />
+                <field name="cancellation_fee"/>
+                <field name="refund_policy"/>
+                <field name="validity"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View inntouch.cancellation.policy form -->
+    <record id="view_inntouch_cancellation_policy_form" model="ir.ui.view">
+        <field name="name">view.inntouch.cancellation.policy.form</field>
+        <field name="model">inntouch.cancellation.policy</field>
+        <field name="arch" type="xml">
+            <form string="Cancellation Policy">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Policy Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="refund_policy" required="1"/>
+                            <field name="cancellation_fee"/>
+                            <field name="validity"/>
+                        </group>
+                        <group>
+                            <field name="property_id" required="1"/>
+                            <field name="description"/>
+                        </group>
+                        
+                        
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View inntouch.cancellation.policy search -->
+    <record id="view_inntouch_cancellation_policy_search" model="ir.ui.view">
+        <field name="name">view.inntouch.cancellation.policy.search</field>
+        <field name="model">inntouch.cancellation.policy</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action inntouch.cancellation.policy -->
+    <record id="action_inntouch_cancellation_policy" model="ir.actions.act_window">
+        <field name="name">Inntouch Cancellation Policy</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">inntouch.cancellation.policy</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Inntouch Cancellation Policy.
+            </p>
+        </field>
+    </record>
+
+</odoo>

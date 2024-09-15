@@ -8,6 +8,7 @@
     'author': "Inntouch",
     'depends': ['inntouch_base'],
     "data": [
+        "views/inntouch_cancellation_policy_views.xml",
         "views/inntouch_booking_source_views.xml",
         "views/inntouch_room_type_views.xml",
         "views/menu_items.xml",
