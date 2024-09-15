@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View inntouch.room.pricing View Tree -->
+    <record id="view_inntouch_room_pricing_tree" model="ir.ui.view">
+        <field name="name">view.inntouch.room.pricing.tree</field>
+        <field name="model">inntouch.room.pricing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="room_type_id"/>
+                <field name="season"/>
+                <field name="price_per_night"/>
+                <field name="effective_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View inntouch.room.pricing form -->
+    <record id="view_inntouch_room_pricing_form" model="ir.ui.view">
+        <field name="name">view.inntouch.room.pricing.form</field>
+        <field name="model">inntouch.room.pricing</field>
+        <field name="arch" type="xml">
+            <form string="Room Pricing">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="room_type_id" required="1"/>
+                            <field name="season" required="1"/>
+                        </group>
+                        <group>
+                            <field name="price_per_night" required="1"/>
+                            <field name="discount"/>
+                            <label for="effective_date" string="Efective Date"/>
+                            <div class="o_row">
+                                <field name="effective_date"/>
+                                <label for="end_date" string=" To"/>
+                                <field name="end_date"/>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View inntouch.room.pricing search -->
+    <record id="view_inntouch_room_pricing_search" model="ir.ui.view">
+        <field name="name">view.inntouch.room.pricing.search</field>
+        <field name="model">inntouch.room.pricing</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action inntouch.room.pricing -->
+    <record id="action_inntouch_room_pricing" model="ir.actions.act_window">
+        <field name="name">Room Pricing</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">inntouch.room.pricing</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Room Pricing.
+            </p>
+        </field>
+    </record>
+
+</odoo>
