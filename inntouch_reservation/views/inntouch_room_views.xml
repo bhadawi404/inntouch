@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View inntouch.room View Tree -->
+    <record id="view_inntouch_room_tree" model="ir.ui.view">
+        <field name="name">view.inntouch.room.tree</field>
+        <field name="model">inntouch.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="room_number"/>
+                <field name="room_type_id"/>
+                <field name="floor"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View inntouch.room form -->
+    <record id="view_inntouch_room_form" model="ir.ui.view">
+        <field name="name">view.inntouch.room.form</field>
+        <field name="model">inntouch.room</field>
+        <field name="arch" type="xml">
+            <form string="Room">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="available,occupied,cleaning,maintenance,unavailable"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Room Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="room_number" />
+                            <field name="room_type_id" />
+                            <field name="floor" />
+                            <field name="max_occupancy" />
+                        </group>
+                        <group>
+                            <field name="price" />
+                            <field name="description" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="amenities" string="Amenities">
+                            <field name="amenities_ids">
+                                <tree>
+                                    <field name="amenities_id" />
+                                </tree>
+                            </field>
+                            
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View inntouch.room search -->
+    <record id="view_inntouch_room_search" model="ir.ui.view">
+        <field name="name">view.inntouch.room.search</field>
+        <field name="model">inntouch.room</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action inntouch.room -->
+    <record id="action_inntouch_room" model="ir.actions.act_window">
+        <field name="name">Room</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">inntouch.room</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Room.
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -15,18 +15,24 @@
             parent="inntouch_reservation.reservation_root"
             sequence="98"/>
         <menuitem
+            id="room_menu"
+            name="Room"
+            parent="inntouch_reservation.room_management"
+            action="inntouch_reservation.action_inntouch_room"
+            sequence="1"/>
+        <menuitem
             id="room_type_configuration"
             name="Room Type"
             parent="inntouch_reservation.room_management"
             action="inntouch_reservation.action_inntouch_room_type"
-            sequence="1"/>
+            sequence="2"/>
 
         <menuitem
             id="room_pricing"
             name="Room Pricing"
             parent="inntouch_reservation.room_management"
             action="inntouch_reservation.action_inntouch_room_pricing"
-            sequence="2"/>
+            sequence="3"/>
         <!-- End Room Management -->
 
         <!-- Configuration -->
