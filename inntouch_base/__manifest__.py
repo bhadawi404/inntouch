@@ -6,7 +6,7 @@
     'version': '1.0',
     'description': """Inntouch Base""",
     'author': "Inntouch",
-    'depends': [],
+    'depends': ["sale_stock", "account"],
     "data": [
         "views/inntouch_property_views.xml",
         "views/inntouch_facilities_views.xml",
