@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View inntouch.guest.preferences View Tree -->
+    <record id="view_inntouch_guest_preferences_tree" model="ir.ui.view">
+        <field name="name">view.inntouch.guest.preferences.tree</field>
+        <field name="model">inntouch.guest.preferences</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="guest_id"/>
+                <field name="preference_type_id"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View inntouch.guest.preferences form -->
+    <record id="view_inntouch_guest_preferences_form" model="ir.ui.view">
+        <field name="name">view.inntouch.guest.preferences.form</field>
+        <field name="model">inntouch.guest.preferences</field>
+        <field name="arch" type="xml">
+            <form string="Guest Preferences">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="guest_id" />
+                        <field name="preference_type_id" />
+                        </group>
+                        <group>
+                            <field name="description" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View inntouch.guest.preferences search -->
+    <record id="view_inntouch_guest_preferences_search" model="ir.ui.view">
+        <field name="name">view.inntouch.guest.preferences.search</field>
+        <field name="model">inntouch.guest.preferences</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action inntouch.guest.preferences -->
+    <record id="action_inntouch_guest_preferences" model="ir.actions.act_window">
+        <field name="name">Guest Preferences</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">inntouch.guest.preferences</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Guest Preferences.
+            </p>
+        </field>
+    </record>
+
+</odoo>

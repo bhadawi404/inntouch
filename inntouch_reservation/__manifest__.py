@@ -8,6 +8,9 @@
     'author': "Inntouch",
     'depends': ['inntouch_base'],
     "data": [
+        "views/inntouch_calendar_availability_views.xml",
+        "views/inntouch_preference_type_views.xml",
+        "views/inntouch_guest_preferences_views.xml",
         "views/inntouch_room_views.xml",
         "views/inntouch_room_pricing_views.xml",
         "views/inntouch_deposit_policy_views.xml",

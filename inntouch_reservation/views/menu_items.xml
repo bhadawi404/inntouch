@@ -14,6 +14,7 @@
             name="Room Management"
             parent="inntouch_reservation.reservation_root"
             sequence="98"/>
+        
         <menuitem
             id="room_menu"
             name="Room"
@@ -34,8 +35,33 @@
             action="inntouch_reservation.action_inntouch_room_pricing"
             sequence="3"/>
         <!-- End Room Management -->
+        <!-- Guest Management-->
+        <menuitem
+            id="guest_management"
+            name="Guests"
+            parent="inntouch_reservation.reservation_root"
+            sequence="97"/>
+        <menuitem
+            id="guest_preperence_menu"
+            name="Guest Preference"
+            parent="inntouch_reservation.guest_management"
+            action="inntouch_reservation.action_inntouch_guest_preferences"
+            sequence="1"/>
+        <!-- End Guest Management -->
+        <!-- Reservation-->
+         <menuitem
+         id="reservation_management"
+         name="Reservation"
+         parent="inntouch_reservation.reservation_root"
+         sequence="96"/>
+         <menuitem
+         id="calendar_availability"
+         name="Calendar Availability"
+         parent="inntouch_reservation.reservation_management"
+         action="inntouch_reservation.action_inntouch_calendar_availability"
+         sequence="1"/>
 
-        <!-- Configuration -->
+         <!-- Reservation-->
         <menuitem
             id="configuration_reservation"
             name="Configuration"
@@ -60,6 +86,12 @@
             parent="inntouch_reservation.configuration_reservation"
             action="inntouch_reservation.action_inntouch_deposit_policy"
             sequence="3"/>
+        <menuitem
+            id="preference_type_configuration"
+            name="Preference Type"
+            parent="inntouch_reservation.configuration_reservation"
+            action="inntouch_reservation.action_inntouch_preference_type"
+            sequence="4"/>
         <!-- End Configuration -->
     </data>
 

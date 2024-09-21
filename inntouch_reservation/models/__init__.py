@@ -4,3 +4,8 @@ from . import inntouch_cancel_policy
 from . import inntouch_deposit_policy
 from . import inntouch_room_price
 from . import inntouch_room
+from . import inntouch_reservation
+from . import inntouch_special_request
+from . import inntouch_preference_guest
+from . import inntouch_calendar_availability
+from . import inntouch_waitlist

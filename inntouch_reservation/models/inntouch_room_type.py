@@ -18,7 +18,16 @@ class InntouchRoomType(models.Model):
         copy=False,
         ondelete="cascade",
     )
-    
+    # This method returns the applicable price based on the active pricing rule.
+    def get_current_price(self, check_in_date, check_out_date):
+        # Look for a pricing rule that applies to the given dates
+        pricing = self.env['inntouch.room.pricing'].search([
+            ('room_type_id', '=', self.id),
+            ('effective_date', '<=', check_in_date),
+            ('end_date', '>=', check_out_date)
+        ], limit=1)
+        return pricing.price_per_night if pricing else self.base_price
+
     @api.model
     def create(self, vals):
         # Buat kategori produk dengan nama yang sama seperti Room Type Name
