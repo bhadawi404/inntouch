@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_inntouch_amenities_manager,inntouch_amenities_manager,model_inntouch_amenities,,1,1,1,1
 access_inntouch_facilities_manager,inntouch_facilities_manager,model_inntouch_facilities,,1,1,1,1
 access_inntouch_property_manager,inntouch_property_manager,model_inntouch_property,,1,1,1,1
+access_inntouch_service_type_manager,inntouch_service_type_manager,model_inntouch_service_type,,1,1,1,1

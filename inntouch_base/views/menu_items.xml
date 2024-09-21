@@ -31,6 +31,12 @@
             parent="inntouch_base.master_data_root"
             action="inntouch_base.action_inntouch_facilities"
             sequence="3"/>
+        <menuitem
+            id="master_data_service_type"
+            name="Service Type"
+            parent="inntouch_base.master_data_root"
+            action="inntouch_base.action_inntouch_service_type"
+            sequence="4"/>
     </data>
 
 </odoo>
