@@ -49,17 +49,23 @@
             sequence="1"/>
         <!-- End Guest Management -->
         <!-- Reservation-->
-         <menuitem
+        <menuitem
          id="reservation_management"
          name="Reservation"
          parent="inntouch_reservation.reservation_root"
          sequence="96"/>
-         <menuitem
+        <menuitem
          id="calendar_availability"
          name="Calendar Availability"
          parent="inntouch_reservation.reservation_management"
          action="inntouch_reservation.action_inntouch_calendar_availability"
          sequence="1"/>
+        <menuitem
+         id="waitlist_menu"
+         name="Wailtlist"
+         parent="inntouch_reservation.reservation_management"
+         action="inntouch_reservation.action_inntouch_waitlist"
+         sequence="3"/>
 
          <!-- Reservation-->
         <menuitem
