@@ -8,7 +8,8 @@ class InntouchCalendarAvailability(models.Model):
     date = fields.Date(string="Date", required=True, help="The date for which the availability is being recorded")
     is_available = fields.Boolean(string="Is Available", default=True, help="Indicates if the room is available on this date")
     notes = fields.Text(string="Notes", help="Additional notes about the room availability")
-
+    room_type_id = fields.Many2one(related='room_id.room_type_id', string="Room Type", store=True, readonly=True)
+    
     _sql_constraints = [
         ('unique_room_date', 'unique(room_id, date)', 'The room is already booked or unavailable on the selected date.')
     ]

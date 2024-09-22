@@ -25,7 +25,8 @@ class InntouchRoom(models.Model):
     )
     description = fields.Text('Description')
     product_id = fields.Many2one('product.product', string="Product", delegate=True, required=True, ondelete="cascade")
-
+    availability_ids = fields.One2many('inntouch.calendar.availability', 'room_id', string="Availability")
+    
     @api.model
     def create(self, vals):
         # Buat product yang terkait dengan kamar

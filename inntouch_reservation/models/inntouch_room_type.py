@@ -18,6 +18,7 @@ class InntouchRoomType(models.Model):
         copy=False,
         ondelete="cascade",
     )
+    room_ids = fields.One2many('inntouch.room', 'room_type_id', string="Rooms")
     # This method returns the applicable price based on the active pricing rule.
     def get_current_price(self, check_in_date, check_out_date):
         # Look for a pricing rule that applies to the given dates
