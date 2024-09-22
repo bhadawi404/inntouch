@@ -15,6 +15,16 @@ class SaleOrderInherit(models.Model):
             record._send_webhook(vals)
 
         return record
+
+    def write(self, vals):
+        # Call super to perform the write operation
+        result = super(SaleOrderInherit, self).write(vals)
+
+        webhook_sale_active = self.env['ir.config_parameter'].sudo().get_param('webhook_sale_order.is_active_webhook_sale')
+        if webhook_sale_active:
+            self._send_webhook()
+
+        return result
     
     def _send_webhook(self, vals):
         """Method to send quotation data to Odoo Enterprise using webhook."""
