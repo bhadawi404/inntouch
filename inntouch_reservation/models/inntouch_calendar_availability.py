@@ -20,3 +20,21 @@ class InntouchCalendarAvailability(models.Model):
             vals['availability_id'] = self.env['ir.sequence'].next_by_code('inntouch.calendar.availability') or _('New')
         result = super(InntouchCalendarAvailability, self).create(vals)
         return result
+
+    @api.model
+    def update_availability(self, room_id, start_date, end_date, is_available=True):
+        """
+        Updates the availability status of a room between the given date range.
+        """
+        current_date = start_date
+        while current_date <= end_date:
+            availability = self.search([('room_id', '=', room_id), ('date', '=', current_date)])
+            if availability:
+                availability.write({'is_available': is_available})
+            else:
+                self.create({
+                    'room_id': room_id,
+                    'date': current_date,
+                    'is_available': is_available
+                })
+            current_date = fields.Date.add(current_date, days=1)

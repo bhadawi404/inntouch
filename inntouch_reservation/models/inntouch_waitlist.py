@@ -11,6 +11,7 @@ class InntouchWaitlist(models.Model):
     _description = 'Waitlist Management'
     _order = 'priority_level desc, requested_checkin_date'
 
+    name = fields.Char('Waitlist Number', default='New')
     guest_id = fields.Many2one('res.partner', string="Guest", required=True, help="Guest who is on the waitlist")
     room_type_id = fields.Many2one('inntouch.room.type', string="Room Type", required=True, help="Type of room requested")
     requested_checkin_date = fields.Date(string="Requested Check-in Date", required=True, help="Date of requested check-in")
@@ -23,62 +24,41 @@ class InntouchWaitlist(models.Model):
     ], string="Status", default='waiting', required=True, help="Current status of the waitlist entry")
 
     @api.model
-    def add_to_waitlist(self, guest_id, room_type_id, checkin_date, checkout_date, priority_level='low'):
+    def add_to_waitlist(self, reservation):
         """
-        Add a guest to the waitlist if the room is not available.
+        Adds a reservation to the waitlist if the room is not available.
         """
-        waitlist_entry = self.create({
-            'guest_id': guest_id,
-            'room_type_id': room_type_id,
-            'requested_checkin_date': checkin_date,
-            'requested_checkout_date': checkout_date,
-            'priority_level': priority_level,
-            'status': 'waiting',
-        })
-        return waitlist_entry
-
-    @api.model
-    def process_waitlist(self):
-        """
-        Process the waitlist periodically, checking for room availability for each guest.
-        """
-        waitlist_entries = self.search([('status', '=', 'waiting')])
-        for entry in waitlist_entries:
-            if self._is_room_available(entry.room_type_id, entry.requested_checkin_date, entry.requested_checkout_date):
-                entry.status = 'confirmed'
-                self._create_reservation(entry)  # Create a reservation automatically
-                self._notify_guest(entry)  # Notify the guest via email or SMS
-            else:
-                entry.status = 'waiting'
-
-    def _is_room_available(self, room_type, checkin_date, checkout_date):
-        """
-        A helper method to check if a room of the requested type is available for the requested dates.
-        """
-        available_rooms = self.env['inntouch.room'].search_count([
-            ('room_type_id', '=', room_type.id),
-            ('status', '=', 'available'),
-            ('date', '>=', checkin_date),
-            ('date', '<=', checkout_date)
-        ])
-        return available_rooms > 0
-
-    def _create_reservation(self, waitlist_entry):
-        """
-        Automatically create a reservation when a room becomes available.
-        """
-        self.env['inntouch.reservation'].create({
-            'guest_id': waitlist_entry.guest_id.id,
-            'room_type_id': waitlist_entry.room_type_id.id,
-            'check_in_date': waitlist_entry.requested_checkin_date,
-            'check_out_date': waitlist_entry.requested_checkout_date,
-            'status': 'confirmed'
+        self.create({
+            'guest_id': reservation.guest_id.id,
+            'room_type_id': reservation.room_id.room_type_id.id,
+            'requested_checkin_date': reservation.check_in_date,
+            'requested_checkout_date': reservation.check_out_date,
+            'priority_level': 1,
         })
 
-    def _notify_guest(self, waitlist_entry):
+    def process_waitlist(self, room_id):
         """
-        Notify the guest via email when their waitlist reservation is confirmed.
+        Process the waitlist when a room becomes available.
         """
-        template = self.env.ref('your_module.waitlist_confirmation_email_template')
-        self.env['mail.template'].browse(template.id).send_mail(waitlist_entry.id, force_send=True)
-
+        # Get all waitlist entries for this room type with status pending
+        waitlist_entries = self.search([('room_type_id', '=', room_id.room_type_id.id), ('status', '=', 'pending')], order='priority_level asc')
+        
+        if waitlist_entries:
+            for entry in waitlist_entries:
+                calendar_avail = self.env['inntouch.calendar.availability']
+                
+                # Check if the room is available for the requested dates
+                if calendar_avail.is_room_available(room_id.id, entry.requested_checkin_date, entry.requested_checkout_date):
+                    # Create reservation for the first in line and update status
+                    self.env['inntouch.reservation'].create({
+                        'guest_id': entry.guest_id.id,
+                        'room_id': room_id.id,
+                        'check_in_date': entry.requested_checkin_date,
+                        'check_out_date': entry.requested_checkout_date,
+                        'status': 'confirmed'
+                    })
+                    # Update calendar availability
+                    calendar_avail.update_availability(room_id.id, entry.requested_checkin_date, entry.requested_checkout_date, False)
+                    # Mark the entry as processed
+                    entry.status = 'processed'
+                    break  # Only process one waitlist entry at a time

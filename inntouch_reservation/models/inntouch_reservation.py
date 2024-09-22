@@ -50,23 +50,26 @@ class InntouchReservation(models.Model):
     
     @api.model
     def create(self, vals):
-        room_type = self.env['inntouch.room.type'].browse(vals.get('room_type_id'))
-        check_in_date = vals.get('check_in_date')
-        check_out_date = vals.get('check_out_date')
+        reservation = super(InntouchReservation, self).create(vals)
+        calendar_avail = self.env['inntouch.calendar.availability']
         
-        # Check room availability
-        available_rooms = self.env['inntouch.room'].search_count([
-            ('room_type_id', '=', room_type.id),
-            ('status', '=', 'available'),
-            ('date', '>=', check_in_date),
-            ('date', '<=', check_out_date)
-        ])
+        # Check availability of the room
+        if reservation.status == 'confirmed':
+            if not calendar_avail.is_room_available(reservation.room_id.id, reservation.check_in_date, reservation.check_out_date):
+                self.env['inntouch.waitlist'].add_to_waitlist(reservation)
+            else:
+                calendar_avail.update_availability(reservation.room_id.id, reservation.check_in_date, reservation.check_out_date, False)
         
-        if available_rooms > 0:
-            reservation = super(InntouchReservation, self).create(vals)
-            return reservation
-        else:
-            raise ValidationError("No available rooms for the selected dates.")
+        return reservation
     
+    def write(self, vals):
+        res = super(InntouchReservation, self).write(vals)
+        calendar_avail = self.env['inntouch.calendar.availability']
+        
+        if 'status' in vals and vals['status'] == 'canceled':
+            calendar_avail.update_availability(self.room_id.id, self.check_in_date, self.check_out_date, True)
+            self.env['inntouch.waitlist'].process_waitlist(self.room_id.id)
+        
+        return res
 
 
