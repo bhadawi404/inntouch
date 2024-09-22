@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- Configuration Minute Of Meeting-->
+<record id="res_config_settings_view_form" model="ir.ui.view">
+    <field name="name">
+        res.config.settings.view.form.inherit.webhook.sale.order
+    </field>
+    <field name="model">res.config.settings</field>
+    <field name="priority" eval="15"/>
+    <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//form//app[@data-string='Sales']" position="inside">
+            <block title="Webhook Sale Order">
+                <setting>
+                    <field name="is_active_webhook_sale"/>
+                    <div class="text-muted">
+                        <div class="mt8" invisible="is_active_webhook_sale ==False">
+                            <label for="webhook_sale_order_url" string="URL Webhook Sale Order"/>
+                            <div>
+                                <field name="webhook_sale_order_url" class="oe_inline" required="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </setting>
+            </block>
+        </xpath>
+    </field>
+</record>
+
+</odoo>
