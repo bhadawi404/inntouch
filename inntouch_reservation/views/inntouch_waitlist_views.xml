@@ -36,9 +36,9 @@
                             <field name="room_type_id" />
                             <field name="priority_level" />
                         </group>
+                        <group>
                             <field name="requested_checkin_date" />
                             <field name="requested_checkout_date" />
-                        <group>
                         </group>
                     </group>
                 </sheet>
