@@ -56,6 +56,7 @@ class SaleOrderInherit(models.Model):
         # Generate payload with external ID
         payload = {
             'name': self.name,
+            'state': self.state,
             'amount_total': self.amount_total,
             'payment_term': self.payment_term_id.name,
             'sale_person_email': self.user_id.email,
