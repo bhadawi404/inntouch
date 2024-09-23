@@ -1,3 +1,4 @@
+from datetime import timedelta
 from odoo import models, fields, api, _
 
 class InntouchCalendarAvailability(models.Model):
@@ -8,34 +9,40 @@ class InntouchCalendarAvailability(models.Model):
     date = fields.Date(string="Date", required=True, help="The date for which the availability is being recorded")
     is_available = fields.Boolean(string="Is Available", default=True, help="Indicates if the room is available on this date")
     notes = fields.Text(string="Notes", help="Additional notes about the room availability")
-    room_type_id = fields.Many2one(related='room_id.room_type_id', string="Room Type", store=True, readonly=True)
+    date_start = fields.Date(string="Start Date", default=lambda self: self.date)
+    date_end = fields.Date(string="End Date", default=lambda self: self.date)
+
     
+
     _sql_constraints = [
         ('unique_room_date', 'unique(room_id, date)', 'The room is already booked or unavailable on the selected date.')
     ]
 
-    # Auto-generate Availability ID
-    @api.model
-    def create(self, vals):
-        if vals.get('availability_id', _('New')) == _('New'):
-            vals['availability_id'] = self.env['ir.sequence'].next_by_code('inntouch.calendar.availability') or _('New')
-        result = super(InntouchCalendarAvailability, self).create(vals)
-        return result
+    def mark_as_booked(self, start_date, end_date, room_id):
+        """Mark the room as booked in the calendar availability for a date range."""
+        for date in self._generate_date_range(start_date, end_date):
+            self.env['inntouch.calendar.availability'].create({
+                'room_id': room_id,
+                'date': date,
+                'is_available': False
+            })
 
-    @api.model
-    def update_availability(self, room_id, start_date, end_date, is_available=True):
-        """
-        Updates the availability status of a room between the given date range.
-        """
-        current_date = start_date
-        while current_date <= end_date:
-            availability = self.search([('room_id', '=', room_id), ('date', '=', current_date)])
-            if availability:
-                availability.write({'is_available': is_available})
-            else:
-                self.create({
-                    'room_id': room_id,
-                    'date': current_date,
-                    'is_available': is_available
-                })
-            current_date = fields.Date.add(current_date, days=1)
+    def mark_as_available(self, start_date, end_date, room_id):
+        """Mark the room as available in the calendar availability for a date range."""
+        availabilities = self.env['inntouch.calendar.availability'].search([
+            ('room_id', '=', room_id),
+            ('date', '>=', start_date),
+            ('date', '<=', end_date)
+        ])
+        availabilities.write({'is_available': True})
+
+
+    def _generate_date_range(self, check_in_date, check_out_date):
+        """Helper method to generate date range between check-in and check-out."""
+        start_date = fields.Date.from_string(check_in_date)
+        end_date = fields.Date.from_string(check_out_date)
+        date_list = []
+        while start_date <= end_date:
+            date_list.append(start_date)
+            start_date += timedelta(days=1)
+        return date_list
